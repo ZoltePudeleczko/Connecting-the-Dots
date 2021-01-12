@@ -4,21 +4,29 @@ using UnityEngine;
 
 public class DotController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public DotType Type;
+
+    private GameManager gameManager;
+
     void Start()
     {
-        
+        gameManager = FindObjectOfType<GameManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnMouseDown()
     {
-        Debug.Log("Text: ");
-        Destroy(gameObject);
+        gameManager.DotClicked(this);
     }
+}
+
+public enum DotType
+{
+    Normal,
+    Start,
+    End
 }
