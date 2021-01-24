@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject linePrefab;
-
-    private DotController dotFirst;
-    private DotController dotSecond;
+    private DotController activeDot = null;
 
     // Start is called before the first frame update
     void Start()
     {
         CreateLevel("Elo");
-
-        dotFirst = dotSecond = null;
     }
 
     // Update is called once per frame
@@ -30,20 +25,28 @@ public class GameManager : MonoBehaviour
 
     public void DotClicked(DotController dot)
     {
-        if (dotFirst == null)
+        if (activeDot == null)
         {
-            dotFirst = dot;
+            activeDot = dot;
         }
         else
         {
-            dotSecond = dot;
-            CreateLine();
+            CreateLine(dot);
         }
     }
 
-    public void CreateLine()
+    public void CreateLine(DotController secondDot)
     {
-        Instantiate(linePrefab, new Vector3(0, 0, -5f), Quaternion.identity);
-        dotFirst = dotSecond = null;
+        var lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
+        lineRenderer.startColor = Color.black;
+        lineRenderer.endColor = Color.black;
+        lineRenderer.startWidth = 0.01f;
+        lineRenderer.endWidth = 0.01f;
+        lineRenderer.positionCount = 2;
+        lineRenderer.useWorldSpace = true;
+
+        lineRenderer.SetPosition(0, activeDot.transform.position);
+        lineRenderer.SetPosition(1, secondDot.transform.position);
+        activeDot = null;
     }
 }
