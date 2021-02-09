@@ -23,7 +23,14 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown("p"))
+        {
+            PauseGame();
+        }
+        if (Input.GetKeyDown("r"))
+        {
+            ResetGame();
+        }
     }
 
     private void CreateLevel(string levelData)
@@ -79,6 +86,33 @@ public class GameManager : MonoBehaviour
             activeDot.SetDotType(DotType.Used);
             gameState = GameState.Finished;
             Debug.Log("Game finished");
+        }
+    }
+
+    private void ResetGame()
+    {
+        foreach (DotController dot in allDots)
+        {
+            dot.SetDotType(DotType.Idle);
+        }
+        foreach (LineRenderer line in FindObjectsOfType<LineRenderer>())
+        {
+            Destroy(line);
+        }
+        gameState = GameState.Running;
+    }
+
+    private void PauseGame()
+    {
+        if (gameState == GameState.Running)
+        {
+            gameState = GameState.Paused;
+            Debug.Log("paused");
+        }
+        else if (gameState == GameState.Paused)
+        {
+            gameState = GameState.Running;
+            Debug.Log("running");
         }
     }
 }
