@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public Object linePrefab;
+
     private GameState gameState;
     private DotController activeDot = null;
+    private DotController firstDot = null;
 
     private List<DotController> allDots = new List<DotController>();
 
-    // Start is called before the first frame update
     void Start()
     {
         CreateLevel("Elo");
@@ -20,7 +22,6 @@ public class GameManager : MonoBehaviour
         Debug.Log(allDots.Count);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown("p"))
@@ -61,19 +62,21 @@ public class GameManager : MonoBehaviour
 
     private void CreateLine(DotController secondDot)
     {
-        var lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
-        lineRenderer.startColor = Color.black;
-        lineRenderer.endColor = Color.black;
-        lineRenderer.startWidth = 0.01f;
-        lineRenderer.endWidth = 0.01f;
-        lineRenderer.positionCount = 2;
-        lineRenderer.useWorldSpace = true;
+        if (firstDot is null)
+        {
+            firstDot = activeDot;
+        }
+        var dir = secondDot.transform.position - activeDot.transform.position;
+        var mid = (dir) / 2.0f + activeDot.transform.position;
 
-        lineRenderer.SetPosition(0, activeDot.transform.position);
-        lineRenderer.SetPosition(1, secondDot.transform.position);
-
+        GameObject line = Instantiate(linePrefab, mid, Quaternion.FromToRotation(Vector3.up, dir)) as GameObject;
+        line.transform.localScale = new Vector3(0.2f, Vector3.Distance(activeDot.transform.position, secondDot.transform.position) - 2.0f);
+        
         activeDot.SetDotType(DotType.Used);
-        secondDot.SetDotType(DotType.Active);
+        if (secondDot.Type != DotType.Used)
+        {
+            secondDot.SetDotType(DotType.Active);
+        }
         activeDot = secondDot;
 
         CheckGameStatus();
@@ -83,22 +86,27 @@ public class GameManager : MonoBehaviour
     {
         if (allDots.Select(d => d.Type).Count(d => d == DotType.Idle) == 0) // Game finished
         {
-            activeDot.SetDotType(DotType.Used);
+            if (activeDot != firstDot)
+            {
+                CreateLine(firstDot);
+            }
             gameState = GameState.Finished;
             Debug.Log("Game finished");
         }
     }
 
-    private void ResetGame()
+    public void ResetGame()
     {
         foreach (DotController dot in allDots)
         {
             dot.SetDotType(DotType.Idle);
         }
-        foreach (LineRenderer line in FindObjectsOfType<LineRenderer>())
+        foreach (LineController line in FindObjectsOfType<LineController>())
         {
-            Destroy(line);
+            Destroy(line.gameObject);
         }
+        activeDot = null;
+        firstDot = null;
         gameState = GameState.Running;
     }
 
