@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         var mid = (dir) / 2.0f + activeDot.transform.position;
 
         GameObject line = Instantiate(linePrefab, mid, Quaternion.FromToRotation(Vector3.up, dir)) as GameObject;
-        line.transform.localScale = new Vector3(0.2f, Vector3.Distance(activeDot.transform.position, secondDot.transform.position) - 2.0f);
+        line.transform.localScale = new Vector3(0.1f, Vector3.Distance(activeDot.transform.position, secondDot.transform.position));
         
         activeDot.SetDotType(DotType.Used);
         if (secondDot.Type != DotType.Used)

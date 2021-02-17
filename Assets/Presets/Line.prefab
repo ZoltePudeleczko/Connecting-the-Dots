@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8595e67aac9d5024489f9b8c3d0d7619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interpolationFramesCount: 45
 --- !u!50 &2386092173930653251
 Rigidbody2D:
   serializedVersion: 4
