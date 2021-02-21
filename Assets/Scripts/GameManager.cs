@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     public float dotRadius;
 
-    private CameraController camera;
+    private CameraController mainCamera;
 
     private GameState gameState;
     private DotController activeDot = null;
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        camera = FindObjectOfType<CameraController>();
+        mainCamera = FindObjectOfType<CameraController>();
 
         CreateLevel("Elo");
         FindDots();
@@ -114,10 +114,10 @@ public class GameManager : MonoBehaviour
         activeDot = null;
         firstDot = null;
         gameState = GameState.Running;
-        camera.Reset();
+        mainCamera.Reset();
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
         if (gameState == GameState.Running)
         {

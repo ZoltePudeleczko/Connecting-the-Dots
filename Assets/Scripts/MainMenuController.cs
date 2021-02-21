@@ -10,8 +10,7 @@ public class MainMenuController : MonoBehaviour
 
     void Start()
     {
-        Button btn = startGameButton.GetComponent<Button>();
-        btn.onClick.AddListener(NewGame);
+        startGameButton.onClick.AddListener(NewGame);
     }
 
     void Update()
