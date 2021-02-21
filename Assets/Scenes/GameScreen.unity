@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   linePrefab: {fileID: 6120450755332883860, guid: 28040199f99f28444964b083fc5b7ae8,
     type: 3}
+  dotRadius: 0.8
 --- !u!4 &34183541
 Transform:
   m_ObjectHideFlags: 0

@@ -14,6 +14,8 @@ public class LineController : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         wantedScale = transform.localScale;
+
+        GetComponent<BoxCollider2D>().enabled = false;
         StartCoroutine(ScaleLineCoroutine());
     }
 
@@ -32,8 +34,9 @@ public class LineController : MonoBehaviour
                 (float)elapsedFrames / interpolationFramesCount);
             elapsedFrames++;
             transform.localScale = interpolatedScale;
-            yield return new WaitForSeconds(0.005f);
+            yield return new WaitForSeconds(0.001f);
         }
+        GetComponent<BoxCollider2D>().enabled = true;
     }
 
     void OnCollisionEnter2D(Collision2D col)
