@@ -5,14 +5,16 @@ using UnityEngine;
 public class LineController : MonoBehaviour
 {
     public int interpolationFramesCount = 45;
-    int elapsedFrames = 0;
 
     private GameManager gameManager;
+
+    private int elapsedFrames = 0;
     private Vector3 wantedScale;
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+
         wantedScale = transform.localScale;
 
         GetComponent<BoxCollider2D>().enabled = false;

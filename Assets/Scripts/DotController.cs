@@ -10,8 +10,9 @@ public class DotController : MonoBehaviour
 
     void Start()
     {
-        SetDotType();
         gameManager = FindObjectOfType<GameManager>();
+
+        SetDotType();
     }
 
     void Update()

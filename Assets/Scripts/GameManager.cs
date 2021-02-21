@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public float dotRadius;
 
+    private CameraController camera;
+
     private GameState gameState;
     private DotController activeDot = null;
     private DotController firstDot = null;
@@ -17,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        camera = FindObjectOfType<CameraController>();
+
         CreateLevel("Elo");
         FindDots();
         gameState = GameState.Running;
@@ -26,11 +30,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("p"))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             PauseGame();
         }
-        if (Input.GetKeyDown("r"))
+        else if (Input.GetKeyDown(KeyCode.R))
         {
             ResetGame();
         }
@@ -110,6 +114,7 @@ public class GameManager : MonoBehaviour
         activeDot = null;
         firstDot = null;
         gameState = GameState.Running;
+        camera.Reset();
     }
 
     private void PauseGame()
@@ -125,6 +130,11 @@ public class GameManager : MonoBehaviour
             Debug.Log("running");
         }
     }
+
+    public bool IsRunning() { return gameState == GameState.Running; }
+    public bool IsPaused() { return gameState == GameState.Paused; }
+    public bool IsFinished() { return gameState == GameState.Finished; }
+
 }
 
 public enum GameState
