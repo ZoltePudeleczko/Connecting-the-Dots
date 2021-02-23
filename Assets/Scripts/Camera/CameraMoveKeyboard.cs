@@ -8,7 +8,6 @@ public class CameraMoveKeyboard : MonoBehaviour
 
     private GameManager gameManager;
 
-
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
