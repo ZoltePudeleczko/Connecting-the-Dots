@@ -15,11 +15,6 @@ public class DotController : MonoBehaviour
         SetDotType();
     }
 
-    void Update()
-    {
-
-    }
-
     void OnMouseDown()
     {
         gameManager.DotClicked(this);

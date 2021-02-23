@@ -21,11 +21,6 @@ public class LineController : MonoBehaviour
         StartCoroutine(ScaleLineCoroutine());
     }
 
-    void Update()
-    {
-
-    }
-
     IEnumerator ScaleLineCoroutine()
     {
         for (int i = 0; i <= interpolationFramesCount; i++)

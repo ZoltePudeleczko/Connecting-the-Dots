@@ -13,11 +13,6 @@ public class MainMenuController : MonoBehaviour
         startGameButton.onClick.AddListener(NewGame);
     }
 
-    void Update()
-    {
-        
-    }
-
     public void NewGame()
     {
         SceneManager.LoadScene("GameScreen");

@@ -17,9 +17,4 @@ public class GameMenuController : MonoBehaviour
         pauseGameButton.onClick.AddListener(gameManager.PauseGame);
         resetGameButton.onClick.AddListener(gameManager.ResetGame);
     }
-
-    void Update()
-    {
-        
-    }
 }
