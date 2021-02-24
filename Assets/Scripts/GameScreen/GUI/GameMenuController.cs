@@ -1,56 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class GameMenuController : MonoBehaviour
 {
-    private GameManager gameManager;
+    public GameObject inGameGUI;
+    public GameObject pauseGUI;
+    public GameObject levelFinishedGUI;
+    public GameObject levelFailedGUI;
 
-    private InGameGUIController inGameGUI;
-    private PauseGUIController pauseGUI;
-    private LevelFinishedGUIController levelFinishedGUI;
-    private LevelFailedGUIController levelFailedGUI;
+    private GameManager gameManager;
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-
-        inGameGUI = FindObjectOfType<InGameGUIController>();
-        pauseGUI = FindObjectOfType<PauseGUIController>();
-        levelFinishedGUI = FindObjectOfType<LevelFinishedGUIController>();
-        levelFailedGUI = FindObjectOfType<LevelFailedGUIController>();
     }
 
     public void GameStart()
     {
-        inGameGUI.gameObject.SetActive(true);
-        pauseGUI.gameObject.SetActive(false);
-        levelFinishedGUI.gameObject.SetActive(false);
-        levelFailedGUI.gameObject.SetActive(false);
+        inGameGUI.SetActive(true);
+        pauseGUI.SetActive(false);
+        levelFinishedGUI.SetActive(false);
+        levelFailedGUI.SetActive(false);
     }
 
     public void GamePause()
     {
-        inGameGUI.gameObject.SetActive(false);
-        pauseGUI.gameObject.SetActive(true);
-        levelFinishedGUI.gameObject.SetActive(false);
-        levelFailedGUI.gameObject.SetActive(false);
+        inGameGUI.SetActive(false);
+        pauseGUI.SetActive(true);
+        levelFinishedGUI.SetActive(false);
+        levelFailedGUI.SetActive(false);
     }
 
     public void GameFinished()
     {
-        inGameGUI.gameObject.SetActive(false);
-        pauseGUI.gameObject.SetActive(false);
-        levelFinishedGUI.gameObject.SetActive(true);
-        levelFailedGUI.gameObject.SetActive(false);
+        inGameGUI.SetActive(false);
+        pauseGUI.SetActive(false);
+        levelFinishedGUI.SetActive(true);
+        levelFailedGUI.SetActive(false);
     }
 
     public void GameFailed()
     {
-        inGameGUI.gameObject.SetActive(false);
-        pauseGUI.gameObject.SetActive(false);
-        levelFinishedGUI.gameObject.SetActive(false);
-        levelFailedGUI.gameObject.SetActive(true);
+        inGameGUI.SetActive(false);
+        pauseGUI.SetActive(false);
+        levelFinishedGUI.SetActive(false);
+        levelFailedGUI.SetActive(true);
     }
 }

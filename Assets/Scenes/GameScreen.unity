@@ -1682,6 +1682,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e134c376da5544f94f0a3b25804fe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inGameGUI: {fileID: 1098673556}
+  pauseGUI: {fileID: 759522238}
+  levelFinishedGUI: {fileID: 979067195}
+  levelFailedGUI: {fileID: 1920453116}
 --- !u!1001 &9088247699044414096
 PrefabInstance:
   m_ObjectHideFlags: 0
