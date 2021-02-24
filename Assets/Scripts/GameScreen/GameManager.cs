@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public float dotRadius;
 
     private CameraController mainCamera;
+    private GameMenuController gameMenu;
 
     private GameState gameState;
     private DotController activeDot = null;
@@ -20,10 +21,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         mainCamera = FindObjectOfType<CameraController>();
+        gameMenu = FindObjectOfType<GameMenuController>();
 
         CreateLevel("Elo");
         FindDots();
-        gameState = GameState.Running;
+
+        ResetGame();
 
         Debug.Log(allDots.Count);
     }
@@ -97,6 +100,7 @@ public class GameManager : MonoBehaviour
                 CreateLine(firstDot);
             }
             gameState = GameState.Finished;
+            gameMenu.GameFinished();
             Debug.Log("Game finished");
         }
     }
@@ -115,6 +119,7 @@ public class GameManager : MonoBehaviour
         firstDot = null;
         gameState = GameState.Running;
         mainCamera.Reset();
+        gameMenu.GameStart();
     }
 
     public void PauseGame()
@@ -122,11 +127,13 @@ public class GameManager : MonoBehaviour
         if (gameState == GameState.Running)
         {
             gameState = GameState.Paused;
+            gameMenu.GamePause();
             Debug.Log("paused");
         }
         else if (gameState == GameState.Paused)
         {
             gameState = GameState.Running;
+            gameMenu.GameStart();
             Debug.Log("running");
         }
     }

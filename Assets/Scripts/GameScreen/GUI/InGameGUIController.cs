@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameMenuController : MonoBehaviour
+public class InGameGUIController : MonoBehaviour
 {
     public Button pauseGameButton;
     public Button resetGameButton;
