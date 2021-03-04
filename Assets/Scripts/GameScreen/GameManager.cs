@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -98,10 +99,17 @@ public class GameManager : MonoBehaviour
             {
                 CreateLine(firstDot);
             }
-            gameState = GameState.Finished;
-            gameMenu.GameFinished();
-            Debug.Log("Game finished");
+
+            StartCoroutine(FinishGameCoroutine(5));
         }
+    }
+
+    IEnumerator FinishGameCoroutine(int secondsWait)
+    {
+        yield return new WaitForSeconds(secondsWait);
+        gameState = GameState.Finished;
+        gameMenu.GameFinished();
+        Debug.Log("Game finished");
     }
 
     public void ResetGame()
