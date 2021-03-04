@@ -71,24 +71,27 @@ public class GameManager : MonoBehaviour
 
     private void CreateLine(DotController secondDot)
     {
-        if (firstDot is null)
+        if (gameState is GameState.Running)
         {
-            firstDot = activeDot;
-        }
-        var dir = secondDot.transform.position - activeDot.transform.position;
-        var mid = (dir) / 2.0f + activeDot.transform.position;
+            if (firstDot is null)
+            {
+                firstDot = activeDot;
+            }
+            var dir = secondDot.transform.position - activeDot.transform.position;
+            var mid = (dir) / 2.0f + activeDot.transform.position;
 
-        GameObject line = Instantiate(linePrefab, mid, Quaternion.FromToRotation(Vector3.up, dir)) as GameObject;
-        line.transform.localScale = new Vector3(line.transform.localScale.x, Vector3.Distance(activeDot.transform.position, secondDot.transform.position) - dotRadius);
-        
-        activeDot.SetDotType(DotType.Used);
-        if (secondDot.Type != DotType.Used)
-        {
-            secondDot.SetDotType(DotType.Active);
-        }
-        activeDot = secondDot;
+            GameObject line = Instantiate(linePrefab, mid, Quaternion.FromToRotation(Vector3.up, dir)) as GameObject;
+            line.transform.localScale = new Vector3(line.transform.localScale.x, Vector3.Distance(activeDot.transform.position, secondDot.transform.position) - dotRadius);
 
-        CheckGameStatus();
+            activeDot.SetDotType(DotType.Used);
+            if (secondDot.Type != DotType.Used)
+            {
+                secondDot.SetDotType(DotType.Active);
+            }
+            activeDot = secondDot;
+
+            CheckGameStatus();
+        }
     }
 
     private void CheckGameStatus()
@@ -112,6 +115,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game finished");
     }
 
+    public void LevelFailed()
+    {
+        gameMenu.GameFailed();
+    }
+
     public void ResetGame()
     {
         foreach (DotController dot in allDots)
@@ -131,13 +139,13 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        if (gameState == GameState.Running)
+        if (gameState is GameState.Running)
         {
             gameState = GameState.Paused;
             gameMenu.GamePause();
             Debug.Log("paused");
         }
-        else if (gameState == GameState.Paused)
+        else if (gameState is GameState.Paused)
         {
             gameState = GameState.Running;
             gameMenu.GameStart();

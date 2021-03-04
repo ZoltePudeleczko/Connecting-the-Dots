@@ -40,7 +40,7 @@ public class LineController : MonoBehaviour
     {
         if (col.gameObject.GetComponent<LineController>())
         {
-            gameManager.ResetGame();
+            gameManager.LevelFailed();
         }
     }
 }
