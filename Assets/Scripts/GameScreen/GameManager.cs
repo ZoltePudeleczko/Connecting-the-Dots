@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     private CameraController mainCamera;
     private GameMenuController gameMenu;
 
-    private GameState gameState;
+    public GameState gameState;
     private DotController activeDot = null;
     private DotController firstDot = null;
 
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     private void CreateLine(DotController secondDot)
     {
-        if (gameState is GameState.Running)
+        if (gameState == GameState.Running)
         {
             if (firstDot is null)
             {
@@ -110,14 +110,19 @@ public class GameManager : MonoBehaviour
     IEnumerator FinishGameCoroutine(int secondsWait)
     {
         yield return new WaitForSeconds(secondsWait);
-        gameState = GameState.Finished;
-        gameMenu.GameFinished();
-        Debug.Log("Game finished");
+        if (gameState != GameState.Finished)
+        {
+            gameState = GameState.Finished;
+            gameMenu.GameFinished();
+            Debug.Log("Game finished");
+        }
     }
 
     public void LevelFailed()
     {
+        gameState = GameState.Finished;
         gameMenu.GameFailed();
+        Debug.Log("Level failed");
     }
 
     public void ResetGame()
@@ -139,13 +144,13 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        if (gameState is GameState.Running)
+        if (gameState == GameState.Running)
         {
             gameState = GameState.Paused;
             gameMenu.GamePause();
             Debug.Log("paused");
         }
-        else if (gameState is GameState.Paused)
+        else if (gameState == GameState.Paused)
         {
             gameState = GameState.Running;
             gameMenu.GameStart();
