@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -156,6 +157,11 @@ public class GameManager : MonoBehaviour
             gameMenu.GameStart();
             Debug.Log("running");
         }
+    }
+
+    public void QuitGame()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     public bool IsRunning() { return gameState == GameState.Running; }
