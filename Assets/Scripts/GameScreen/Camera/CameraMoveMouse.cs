@@ -13,7 +13,7 @@ public class CameraMoveMouse : MonoBehaviour
 
     void Update()
     {
-        if (gameManager.IsRunning() || gameManager.IsFinished())
+        if (gameManager.IsRunning())
         {
             if (Input.GetMouseButton(0))
             {

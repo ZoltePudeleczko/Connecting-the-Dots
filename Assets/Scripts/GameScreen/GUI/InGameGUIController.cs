@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class InGameGUIController : MonoBehaviour
 {
     public Button pauseGameButton;
-    public Button resetGameButton;
 
     private GameManager gameManager;
 
@@ -15,6 +14,5 @@ public class InGameGUIController : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
 
         pauseGameButton.onClick.AddListener(gameManager.PauseGame);
-        resetGameButton.onClick.AddListener(gameManager.ResetGame);
     }
 }

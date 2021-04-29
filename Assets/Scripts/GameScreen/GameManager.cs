@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
                 CreateLine(firstDot);
             }
 
-            StartCoroutine(FinishGameCoroutine(5));
+            StartCoroutine(FinishGameCoroutine(1));
         }
     }
 

@@ -15,7 +15,7 @@ public class CameraMoveKeyboard : MonoBehaviour
 
     void Update()
     {
-        if (gameManager.IsRunning() || gameManager.IsFinished())
+        if (gameManager.IsRunning())
         {
             if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
